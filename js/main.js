@@ -25,6 +25,8 @@ var app = {
         alert(title ? (title + ": " + message) : message);
     }
 	},
+	
+	
 renderHomeView: function() {
     var html =
             "<div class='header'><h1>Home</h1></div>" +
@@ -40,7 +42,7 @@ initialize: function() {
     var self = this;
     this.store = new MemoryStore(function() {
         self.renderHomeView();
-    }
+    });
 }
 };
 
