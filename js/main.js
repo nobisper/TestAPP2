@@ -1,6 +1,10 @@
 var app = {
 
     findByName: function() {
+        var self = this;
+    this.store.findByName($('.search-key').val(), function(employees) {
+        $('.employee-list').html(self.employeeLiTpl(employees));
+    });
         console.log('findByName');
         this.store.findByName($('.search-key').val(), function(employees) {
             var l = employees.length;
@@ -25,6 +29,8 @@ var app = {
 	
 	
 renderHomeView: function() {
+	    $('body').html(this.homeTpl());
+    $('.search-key').on('keyup', $.proxy(this.findByName, this));
     var html =
             "<div class='header'><h1>Home</h1></div>" +
             "<div class='search-view'>" +
@@ -37,6 +43,8 @@ renderHomeView: function() {
 
 initialize: function() {
     var self = this;
+    this.homeTpl = Handlebars.compile($("#home-tpl").html());
+	this.employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html());
     this.store = new MemoryStore(function() {
         self.renderHomeView();
     });
